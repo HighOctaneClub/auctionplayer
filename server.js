@@ -18,8 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 let gameStates = {};
-const cars = [
-{ name: "Audi Q3", startPrice: 40820, minBid: 5820, engine: "2.0L Petrol", bhp: 184, fuel: "Petrol" }
+const cars = [ { name: "Audi Q3", startPrice: 40820, minBid: 5820, engine: "2.0L Petrol", bhp: 184, fuel: "Petrol" }
 { name: "Mercedes G-Wagon", startPrice: 186350, minBid: 11650, engine: "4.0L V8", bhp: 416, fuel: "Petrol" }
 { name: "Ford Endeavour", startPrice: 32610, minBid: 5820, engine: "2.2L Diesel", bhp: 158, fuel: "Diesel" }
 { name: "Volkswagen Polo", startPrice: 6990, minBid: 2330, engine: "1.2L Petrol", bhp: 74, fuel: "Petrol" }
@@ -121,7 +120,7 @@ function startGameAuction(gameId) {
 function resetAuctionTimer(gameId) {
     const gameState = gameStates[gameId];
     if (!gameState) return;
-    gameState.timeLeft = 15;
+    gameState.timeLeft = 10;
     io.to(gameId).emit('auctionTimerUpdate', gameState.timeLeft);
     if (gameState.auctionTimer) clearInterval(gameState.auctionTimer);
     gameState.auctionTimer = setInterval(() => {
