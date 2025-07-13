@@ -263,26 +263,33 @@ io.on('connection', (socket) => {
     });
 
     socket.on('bidUp', ({ playerName, gameId }) => {
-        const gameState = gameStates[gameId];
-        const player = gameState?.players?.[playerName];
-        const currentCar = gameState?.cars?.[gameState.currentCarIndex];
-        if (!gameState || !player || !currentCar || !gameState.auctionActive) return;
+    const gameState = gameStates[gameId];
+    const player = gameState?.players?.[playerName];
+    const currentCar = gameState?.cars?.[gameState.currentCarIndex];
+    if (!gameState || !player || !currentCar || !gameState.auctionActive) return;
 
-        const newPrice = gameState.currentBidPrice + currentCar.minBid;
-        if (player.money < newPrice) return socket.emit('error', 'Insufficient funds');
+    // 🚫 Prevent bidding if player already owns 4 cars
+    if (player.garage.length >= 4) {
+        return socket.emit('error', 'You already own 4 cars. You cannot bid further.');
+    }
 
-        gameState.currentBidPrice = newPrice;
-        gameState.topBidder = playerName;
-        gameState.topBidderSocketId = socket.id;
+    const newPrice = gameState.currentBidPrice + currentCar.minBid;
+    if (player.money < newPrice) {
+        return socket.emit('error', 'Insufficient funds');
+    }
 
-        io.to(gameId).emit('bidUpdate', {
-            currentPrice: gameState.currentBidPrice,
-            topBidder: gameState.topBidder
-        });
-        updateAdmin(gameId);
-        resetAuctionTimer(gameId);
+    gameState.currentBidPrice = newPrice;
+    gameState.topBidder = playerName;
+    gameState.topBidderSocketId = socket.id;
+
+    io.to(gameId).emit('bidUpdate', {
+        currentPrice: gameState.currentBidPrice,
+        topBidder: gameState.topBidder
     });
-
+    updateAdmin(gameId);
+    resetAuctionTimer(gameId);
+});
+    
     socket.on('adminJoin', ({ gameId }) => {
         if (!gameStates[gameId]) return socket.emit('error', 'Invalid Game ID');
         socket.join(`admin-${gameId}`);
