@@ -18,67 +18,70 @@ app.use(cors());
 app.use(express.json());
 
 let gameStates = {};
-const cars = [ { name: "Audi Q3", startPrice: 40820, minBid: 5820, engine: "2.0L Petrol", bhp: 184, fuel: "Petrol" }
-{ name: "Mercedes G-Wagon", startPrice: 186350, minBid: 11650, engine: "4.0L V8", bhp: 416, fuel: "Petrol" }
-{ name: "Ford Endeavour", startPrice: 32610, minBid: 5820, engine: "2.2L Diesel", bhp: 158, fuel: "Diesel" }
-{ name: "Volkswagen Polo", startPrice: 6990, minBid: 2330, engine: "1.2L Petrol", bhp: 74, fuel: "Petrol" }
-{ name: "Land Rover Range Rover Sport", startPrice: 174710, minBid: 11650, engine: "5.0L Petrol", bhp: 510, fuel: "Petrol" }
-{ name: "Ferrari F8 Tributo", startPrice: 407070, minBid: 11650, engine: "3.9L Petrol", bhp: 710, fuel: "Petrol" }
-{ name: "Hyundai Creta", startPrice: 16300, minBid: 2330, engine: "1.6L Petrol", bhp: 121, fuel: "Petrol" }
-{ name: "Bentley Continental GT", startPrice: 291190, minBid: 11650, engine: "6.0L Petrol", bhp: 626, fuel: "Petrol" }
-{ name: "Mahindra Thar", startPrice: 23300, minBid: 2330, engine: "2.0L Petrol", bhp: 150, fuel: "Petrol" }
-{ name: "Toyota 86", startPrice: 46590, minBid: 2330, engine: "2.0L Petrol", bhp: 200, fuel: "Petrol" }
-{ name: "BMW X1", startPrice: 40700, minBid: 5820, engine: "2.0L Petrol", bhp: 192, fuel: "Petrol" }
-{ name: "Skoda Karoq", startPrice: 17470, minBid: 2330, engine: "1.5L Petrol", bhp: 148, fuel: "Petrol" }
-{ name: "Audi R8", startPrice: 233000, minBid: 11650, engine: "5.2L Petrol", bhp: 610, fuel: "Petrol" }
-{ name: "Bugatti Chiron", startPrice: 291190, minBid: 11650, engine: "8.0L Petrol", bhp: 1479, fuel: "Petrol" }
-{ name: "Toyota RAV4", startPrice: 29120, minBid: 5820, engine: "2.0L Petrol", bhp: 203, fuel: "Petrol" }
-{ name: "Jeep Compass", startPrice: 17470, minBid: 2330, engine: "1.4L Petrol", bhp: 160, fuel: "Petrol" }
-{ name: "Porsche Cayman", startPrice: 93190, minBid: 11650, engine: "2.7L Petrol", bhp: 275, fuel: "Petrol" }
-{ name: "Land Rover Range Rover Evoque", startPrice: 58240, minBid: 11650, engine: "2.0L Petrol", bhp: 237, fuel: "Petrol" }
-{ name: "Honda CR-V", startPrice: 29120, minBid: 5820, engine: "2.0L Petrol", bhp: 154, fuel: "Petrol" }
-{ name: "Hyundai Tucson", startPrice: 20960, minBid: 2330, engine: "2.0L Diesel", bhp: 182, fuel: "Diesel" }
-{ name: "Lamborghini Aventador", startPrice: 349430, minBid: 11650, engine: "6.5L Petrol ", bhp: 759, fuel: "Petrol" }
-{ name: "BMW M4", startPrice: 116480, minBid: 11650, engine: "3.0L Petrol", bhp: 425, fuel: "Petrol" }
-{ name: "McLaren 570S", startPrice: 233000, minBid: 11650, engine: "3.8L Petrol", bhp: 562, fuel: "Petrol" }
-{ name: "Maruti Suzuki Swift", startPrice: 5820, minBid: 2330, engine: "1.2L Petrol", bhp: 82, fuel: "Petrol" }
-{ name: "Toyota Fortuner", startPrice: 58240, minBid: 5820, engine: "2.7L Petrol", bhp: 164, fuel: "Petrol" }
-{ name: "Toyota Yaris", startPrice: 9310, minBid: 2330, engine: "1.5L Petrol", bhp: 106, fuel: "Petrol" }
-{ name: "Koenigsegg Agera", startPrice: 233000, minBid: 11650, engine: "5.0L Petrol", bhp: 1341, fuel: "Petrol" }
-{ name: "Porsche 911", startPrice: 174710, minBid: 11650, engine: "3.0L Petrol", bhp: 379, fuel: "Petrol" }
-{ name: "Volkswagen Tiguan", startPrice: 32610, minBid: 5820, engine: "2.0L Diesel", bhp: 143, fuel: "Diesel" }
-{ name: "BMW 1 Series", startPrice: 23300, minBid: 5820, engine: "1.5L Petrol", bhp: 136, fuel: "Petrol" }
-{ name: "Aston Martin Vantage", startPrice: 233000, minBid: 11650, engine: "4.0L Petrol", bhp: 503, fuel: "Petrol" }
-{ name: "Ferrari 488 GTB", startPrice: 349430, minBid: 11650, engine: "3.9L Petrol", bhp: 661, fuel: "Petrol" }
-{ name: "Mercedes-Benz A-Class", startPrice: 29120, minBid: 5820, engine: "1.4L Petrol", bhp: 161, fuel: "Petrol" }
-{ name: "Lamborghini Huracan", startPrice: 291190, minBid: 11650, engine: "5.2L Petrol", bhp: 610, fuel: "Petrol" }
-{ name: "Mercedes-AMG GT", startPrice: 174710, minBid: 11650, engine: "4.0L Petrol", bhp: 469, fuel: "Petrol" }
-{ name: "Mercedes-Benz GLB", startPrice: 34940, minBid: 5820, engine: "2.0L Petrol", bhp: 221, fuel: "Petrol" }
-{ name: "Skoda Kodiaq", startPrice: 40700, minBid: 5820, engine: "2.0L Diesel", bhp: 150, fuel: "Diesel" }
-{ name: "Honda HR-V", startPrice: 20960, minBid: 2330, engine: "1.8L Petrol", bhp: 141, fuel: "Petrol" }
-{ name: "Toyota Hilux", startPrice: 38430, minBid: 2330, engine: "2.8L Diesel", bhp: 201, fuel: "Diesel" }
-{ name: "Ford EcoSport", startPrice: 9310, minBid: 2330, engine: "1.5L Petrol", bhp: 121, fuel: "Petrol" }
-{ name: "Audi A1", startPrice: 17470, minBid: 2330, engine: "1.4L Petrol", bhp: 122, fuel: "Petrol" }
-{ name: "BMW X2", startPrice: 40700, minBid: 5820, engine: "2.0L Petrol", bhp: 192, fuel: "Petrol" }
-{ name: "Nissan GT-R", startPrice: 174710, minBid: 11650, engine: "3.8L Petrol", bhp: 565, fuel: "Petrol" }
-{ name: "Maserati GranTurismo", startPrice: 174710, minBid: 11650, engine: "4.7L Petrol", bhp: 460, fuel: "Petrol" }
-{ name: "Mahindra XUV700", startPrice: 34940, minBid: 2330, engine: "2.2L Diesel", bhp: 140, fuel: "Diesel" }
-{ name: "Jaguar F-Type", startPrice: 139770, minBid: 11650, engine: "5.0L Petrol", bhp: 550, fuel: "Petrol" }
-{ name: "Chevrolet Corvette", startPrice: 116480, minBid: 11650, engine: "6.2L Petrol", bhp: 460, fuel: "Petrol" }
-{ name: "Dodge Challenger", startPrice: 93190, minBid: 11650, engine: "6.2L Petrol", bhp: 707, fuel: "Petrol" }
-{ name: "MG Hector", startPrice: 18640, minBid: 2330, engine: "1.5L Petrol", bhp: 141, fuel: "Petrol", type: "Hybrid" }
-{ name: "Pagani Huayra", startPrice: 291190, minBid: 11650, engine: "6.0L Petrol", bhp: 789, fuel: "Petrol" }
-{ name: "Kia Seltos", startPrice: 11650, minBid: 2330, engine: "1.5L Petrol", bhp: 113, fuel: "Petrol" }
-{ name: "Renault Duster", startPrice: 9310, minBid: 2330, engine: "1.5L Petrol", bhp: 104, fuel: "Petrol" }
-{ name: "Hyundai Elite i20", startPrice: 6990, minBid: 2330, engine: "1.2L Petrol", bhp: 82, fuel: "Petrol" }
-{ name: "Audi Q2", startPrice: 29120, minBid: 5820, engine: "2.0L Petrol", bhp: 190, fuel: "Petrol" }
-{ name: "Land Rover Discovery", startPrice: 81530, minBid: 11650, engine: "2.0L Petrol", bhp: 237, fuel: "Petrol" }
-{ name: "Ford Mustang", startPrice: 69890, minBid: 5820, engine: "5.0L Petrol", bhp: 444, fuel: "Petrol" }
-{ name: "Mercedes-Benz GLA", startPrice: 34940, minBid: 5820, engine: "2.0L Petrol", bhp: 181, fuel: "Petrol" }
-{ name: "Tesla model s plaid", startPrice: 174710, minBid: 11650, engine: "100kw Motor", bhp: 670, fuel: "EV" }
-{ name: "Volkswagen T-Roc", startPrice: 17470, minBid: 2330, engine: "1.5L Petrol", bhp: 148, fuel: "Petrol" }
-{ name: "Mini Cooper S", startPrice: 52420, minBid: 2330, engine: "2.8L Diesel", bhp: 201, fuel: "Diesel" }
-{ name: "Defender", startPrice: 174710, minBid: 11650, engine: "3.5l Diesel", bhp: 300, fuel: "Diesel" }];
+const cars = [ 
+
+    { name: "Volkswagen Polo", startPrice: 600000, minBid: 200000, engine: "1.2L Petrol", bhp: 74, fuel: "Petrol" },
+    { name: "Ford EcoSport", startPrice: 800000, minBid: 200000, engine: "1.5L Petrol", bhp: 121, fuel: "Petrol" },
+    { name: "BMW X2", startPrice: 3500000, minBid: 500000, engine: "2.0L Petrol", bhp: 192, fuel: "Petrol" },
+    { name: "Toyota Hilux", startPrice: 3300000, minBid: 200000, engine: "2.8L Diesel", bhp: 201, fuel: "Diesel" },
+    { name: "Audi Q2", startPrice: 2500000, minBid: 500000, engine: "2.0L Petrol", bhp: 190, fuel: "Petrol" },
+    { name: "Porsche Cayman", startPrice: 8000000, minBid: 1000000, engine: "2.7L Petrol", bhp: 275, fuel: "Petrol" },
+    { name: "Mercedes-AMG GT", startPrice: 15000000, minBid: 1000000, engine: "4.0L Petrol", bhp: 469, fuel: "Petrol" },
+    { name: "Land Rover Range Rover Sport", startPrice: 15000000, minBid: 1000000, engine: "5.0L Petrol", bhp: 510, fuel: "Petrol" },
+    { name: "Hyundai Creta", startPrice: 1400000, minBid: 200000, engine: "1.6L Petrol", bhp: 121, fuel: "Petrol" },
+    { name: "Bentley Continental GT", startPrice: 25000000, minBid: 1000000, engine: "6.0L Petrol", bhp: 626, fuel: "Petrol" },
+    { name: "Ferrari 488 GTB", startPrice: 30000000, minBid: 1000000, engine: "3.9L Petrol", bhp: 661, fuel: "Petrol" },
+    { name: "Audi Q3", startPrice: 3500000, minBid: 500000, engine: "2.0L Petrol", bhp: 184, fuel: "Petrol" },
+    { name: "Land Rover Discovery", startPrice: 7000000, minBid: 1000000, engine: "2.0L Petrol", bhp: 237, fuel: "Petrol" },
+    { name: "Lamborghini Aventador", startPrice: 30000000, minBid: 1000000, engine: "6.5L Petrol ", bhp: 759, fuel: "Petrol" },
+    { name: "Hyundai Tucson", startPrice: 1800000, minBid: 200000, engine: "2.0L Diesel", bhp: 182, fuel: "Diesel" },
+    { name: "Chevrolet Corvette", startPrice: 10000000, minBid: 1000000, engine: "6.2L Petrol", bhp: 460, fuel: "Petrol" },
+    { name: "Volkswagen Tiguan", startPrice: 2800000, minBid: 500000, engine: "2.0L Diesel", bhp: 143, fuel: "Diesel" },
+    { name: "Mini Cooper S ", startPrice: 4500000, minBid: 200000, engine: "2.8L Diesel", bhp: 201, fuel: "Diesel" },
+    { name: "Toyota 86", startPrice: 4000000, minBid: 200000, engine: "2.0L Petrol", bhp: 200, fuel: "Petrol" },
+    { name: "Mercedes-Benz GLB", startPrice: 3000000, minBid: 500000, engine: "2.0L Petrol", bhp: 221, fuel: "Petrol" },
+    { name: "BMW 1 Series", startPrice: 2000000, minBid: 500000, engine: "1.5L Petrol", bhp: 136, fuel: "Petrol" },
+    { name: "Mercedes G-Wagon", startPrice: 16000000, minBid: 1000000, engine: "4.0L V8", bhp: 416, fuel: "Petrol" },
+    { name: "Ford Mustang", startPrice: 6000000, minBid: 500000, engine: "5.0L Petrol", bhp: 444, fuel: "Petrol" },
+    { name: "Dodge Challenger", startPrice: 8000000, minBid: 1000000, engine: "6.2L Petrol", bhp: 707, fuel: "Petrol" },
+    { name: "McLaren 570S", startPrice: 20000000, minBid: 1000000, engine: "3.8L Petrol", bhp: 562, fuel: "Petrol" },
+    { name: "Porsche 911", startPrice: 15000000, minBid: 1000000, engine: "3.0L Petrol", bhp: 379, fuel: "Petrol" },
+    { name: "Land Rover Range Rover Evoque", startPrice: 5000000, minBid: 1000000, engine: "2.0L Petrol", bhp: 237, fuel: "Petrol" },
+    { name: "Mahindra Thar", startPrice: 2000000, minBid: 200000, engine: "2.0L Petrol", bhp: 150, fuel: "Petrol" },
+    { name: "Ferrari F8 Tributo", startPrice: 35000000, minBid: 1000000, engine: "3.9L Petrol", bhp: 710, fuel: "Petrol" },
+    { name: "Toyota Yaris", startPrice: 800000, minBid: 200000, engine: "1.5L Petrol", bhp: 106, fuel: "Petrol" },
+    { name: "Toyota Fortuner", startPrice: 5000000, minBid: 500000, engine: "2.7L Petrol", bhp: 164, fuel: "Petrol" },
+    { name: "Audi R8", startPrice: 20000000, minBid: 1000000, engine: "5.2L Petrol", bhp: 610, fuel: "Petrol" },
+    { name: "Aston Martin Vantage", startPrice: 20000000, minBid: 1000000, engine: "4.0L Petrol", bhp: 503, fuel: "Petrol" },
+    { name: "Volkswagen T-Roc", startPrice: 1500000, minBid: 200000, engine: "1.5L Petrol", bhp: 148, fuel: "Petrol" },
+    { name: "BMW M4", startPrice: 10000000, minBid: 1000000, engine: "3.0L Petrol", bhp: 425, fuel: "Petrol" },
+    { name: "Mercedes-Benz GLA", startPrice: 3000000, minBid: 500000, engine: "2.0L Petrol", bhp: 181, fuel: "Petrol" },
+    { name: "Koenigsegg Agera", startPrice: 20000000, minBid: 1000000, engine: "5.0L Petrol", bhp: 1341, fuel: "Petrol" },
+    { name: "Toyota RAV4", startPrice: 2500000, minBid: 500000, engine: "2.0L Petrol", bhp: 203, fuel: "Petrol" },
+    { name: "Honda CR-V", startPrice: 2500000, minBid: 500000, engine: "2.0L Petrol", bhp: 154, fuel: "Petrol" },
+    { name: "Lamborghini Huracan", startPrice: 25000000, minBid: 1000000, engine: "5.2L Petrol", bhp: 610, fuel: "Petrol" },
+    { name: "Tesla model s plaid", startPrice: 15000000, minBid: 1000000, engine: "100kw Motor", bhp: 670, fuel: "EV" },
+    { name: "Nissan GT-R", startPrice: 15000000, minBid: 1000000, engine: "3.8L Petrol", bhp: 565, fuel: "Petrol" },
+    { name: "Pagani Huayra", startPrice: 25000000, minBid: 1000000, engine: "6.0L Petrol", bhp: 789, fuel: "Petrol" },
+    { name: "MG Hector", startPrice: 1600000, minBid: 200000, engine: "1.5L Petrol", bhp: 141, fuel: "Petrol", type: "Hybrid" },
+    { name: "Kia Seltos", startPrice: 1000000, minBid: 200000, engine: "1.5L Petrol", bhp: 113, fuel: "Petrol" },
+    { name: "Jeep Compass", startPrice: 1500000, minBid: 200000, engine: "1.4L Petrol", bhp: 160, fuel: "Petrol" },
+    { name: "Audi A1", startPrice: 1500000, minBid: 200000, engine: "1.4L Petrol", bhp: 122, fuel: "Petrol" },
+    { name: "Maruti Suzuki Swift", startPrice: 500000, minBid: 200000, engine: "1.2L Petrol", bhp: 82, fuel: "Petrol" },
+    { name: "Skoda Kodiaq", startPrice: 3500000, minBid: 500000, engine: "2.0L Diesel", bhp: 150, fuel: "Diesel" },
+    { name: "Renault Duster", startPrice: 800000, minBid: 200000, engine: "1.5L Petrol", bhp: 104, fuel: "Petrol" },
+    { name: "Mercedes-Benz A-Class", startPrice: 2500000, minBid: 500000, engine: "1.4L Petrol", bhp: 161, fuel: "Petrol" },
+    { name: "Honda HR-V", startPrice: 1800000, minBid: 200000, engine: "1.8L Petrol", bhp: 141, fuel: "Petrol" },
+    { name: "Ford Endeavour", startPrice: 2800000, minBid: 500000, engine: "2.2L Diesel", bhp: 158, fuel: "Diesel" },
+    { name: "Bugatti Chiron", startPrice: 25000000, minBid: 1000000, engine: "8.0L Petrol", bhp: 1479, fuel: "Petrol" },
+    { name: "Mahindra XUV700", startPrice: 3000000, minBid: 200000, engine: "2.2L Diesel", bhp: 140, fuel: "Diesel" },
+    { name: "Defender", startPrice: 15000000, minBid: 1000000, engine: "3.5l Diesel", bhp: 300, fuel: "Diesel" },
+    { name: "Jaguar F-Type", startPrice: 12000000, minBid: 1000000, engine: "5.0L Petrol", bhp: 550, fuel: "Petrol" },
+    { name: "Maserati GranTurismo", startPrice: 15000000, minBid: 1000000, engine: "4.7L Petrol", bhp: 460, fuel: "Petrol" },
+    { name: "Skoda Karoq", startPrice: 1500000, minBid: 200000, engine: "1.5L Petrol", bhp: 148, fuel: "Petrol" },
+    { name: "Hyundai Elite i20", startPrice: 600000, minBid: 200000, engine: "1.2L Petrol", bhp: 82, fuel: "Petrol" },
+    { name: "BMW X1", startPrice: 3500000, minBid: 500000, engine: "2.0L Petrol", bhp: 192, fuel: "Petrol" }
+];
 
 function logToAdmin(gameId, message) {
     io.to(`admin-${gameId}`).emit('logUpdate', message);
@@ -210,7 +213,7 @@ io.on('connection', (socket) => {
                 topBidder: "None",
                 topBidderSocketId: null,
                 auctionTimer: null,
-                timeLeft: 15,
+                timeLeft: 10,
                 auctionActive: false,
                 hostId: socket.id,
                 cars: [...cars]
@@ -224,7 +227,7 @@ io.on('connection', (socket) => {
 
         gameState.players[playerName] = gameState.players[playerName] || {
             name: playerName,
-            money: 100000000,
+            money: 50000000,
             garage: [],
             socketId: socket.id
         };
